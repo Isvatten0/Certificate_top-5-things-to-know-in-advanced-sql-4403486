@@ -9,6 +9,6 @@ help the business know which products they are running low on.
 -- Preview data if necessary 
 -- select top (5) * FROM [Red30Tech].[dbo].[Inventory$]
 
-SELECT [ProdCategory], [ProdNumber], [ProdName], [In Stock]
-FROM [Red30Tech].[dbo].[Inventory$]
+SELECT I.[ProdCategory], I.[ProdNumber], I.[ProdName], I.[In Stock]
+FROM [Red30Tech].[dbo].[Inventory$] AS I
 WHERE [In Stock] < (SELECT AVG([In Stock]) FROM [Red30Tech].[dbo].[Inventory$])
