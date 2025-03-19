@@ -9,9 +9,11 @@ products they are running low on.
 -- Preview data if necessary 
 -- select top (5) * FROM [Red30Tech].[dbo].[Inventory$]
 
-WITH LOWSTOCK (STOCK) AS 
-		(SELECT AVG([In Stock]) AS STOCK FROM [Red30Tech].[dbo].[Inventory$])
+WITH InStockLow (AvgStock) AS (
+	SELECT AVG([In Stock]) AS AvgStock 
+	FROM [Red30Tech].[dbo].[Inventory$]
+)
 
-SELECT [ProdCategory], [ProdNumber], [ProdName], [In Stock]
-FROM [Red30Tech].[dbo].[Inventory$], LOWSTOCK
-WHERE [In Stock] < STOCK
+SELECT I.[ProdCategory], I.[ProdNumber], I.[ProdName], I.[In Stock]
+FROM [Red30Tech].[dbo].[Inventory$] I, InStockLow L
+WHERE I.[In Stock] < L.AvgStock
